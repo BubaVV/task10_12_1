@@ -1,0 +1,10 @@
+version: 1
+config:
+  - type: physical
+    name: interface0
+    mac_address: "52:54:00:12:34:00"
+    subnets:
+      - type: static
+        address: 192.168.1.10
+        netmask: 255.255.255.0
+        gateway: 192.168.1.254

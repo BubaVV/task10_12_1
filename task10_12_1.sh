@@ -16,5 +16,12 @@ cp /var/lib/libvirt/images/ubunut-server-16.04.qcow2 $VM1_HDD
 cp /var/lib/libvirt/images/ubunut-server-16.04.qcow2 $VM2_HDD
 
 echo "Create config drives"
-mkisofs -o "$VM1_CONFIG_ISO" -V cidata -r -J --quiet /config-drives/vm1-config
-mkisofs -o "$VM2_CONFIG_ISO" -V cidata -r -J --quiet /config-drives/vm2-config
+mkisofs -o "$VM1_CONFIG_ISO" -V cidata -r -J --quiet config-drives/vm1-config
+mkisofs -o "$VM2_CONFIG_ISO" -V cidata -r -J --quiet config-drives/vm2-config
+
+echo "Generate MAC adress for external network"
+export MAC_VM1_EXT=52:54:00:`(date; cat /proc/interrupts) | md5sum | sed -r 's/^(.{6}).*$/\1/; s/([0-9a-f]{2})/\1:/g; s/:$//;'`
+
+
+
+

@@ -1,0 +1,4 @@
+<network>
+  <name>${EXTERNAL_NET_NAME}</name>
+  <ip address='${EXTERNAL_NET_IP}' netmask='${EXTERNAL_NET_MASK}'/>
+</network>

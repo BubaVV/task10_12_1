@@ -1,0 +1,15 @@
+hostname: ${VM1_NAME}
+local-hostname: ${VM1_NAME}
+network-interfaces: |
+  auto ${VM1_INTERNAL_IF}
+  iface ${VM1_INTERNAL_IF} inet static
+  address ${VM2_INTERNAL_IP}
+  network ${INTERNAL_NET}
+  netmask ${INTERNAL_NET_MASK}
+  dns-nameservers ${VM_DNS}
+
+  auto ${VM2_MANAGEMENT_IF}
+  iface ${VM2_MANAGEMENT_IF} inet static
+  address ${VM2_MANAGEMENT_IP}
+  network ${MANAGEMENT_NET}
+  netmask ${MANAGEMENT_NET_MASK}

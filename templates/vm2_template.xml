@@ -1,7 +1,7 @@
 <domain type='kvm'>
-  <name>${VM1_NAME}</name>
-  <memory unit='MiB'>${VM1_MB_RAM}</memory>
-  <vcpu placement='static'>${VM1_NUM_CPU}</vcpu>
+  <name>${VM2_NAME}</name>
+  <memory unit='MiB'>${VM2_MB_RAM}</memory>
+  <vcpu placement='static'>${VM2_NUM_CPU}</vcpu>
   <os>
     <type>${VM_TYPE}</type>
     <boot dev='hd'/>
@@ -9,20 +9,15 @@
   <devices>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='${VM1_HDD}'/>
+      <source file='${VM2_HDD}'/>
       <target dev='vda' bus='virtio'/>
     </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='${VM1_CONFIG_ISO}'/>
+      <source file='${VM2_CONFIG_ISO}'/>
       <target dev='hdc' bus='ide'/>
       <readonly/>
     </disk>
-    <interface type='network'>
-      <mac address='${MAC_VM1_EXT}'/>
-      <source network='${EXTERNAL_NET_NAME}'/>
-      <model type='virtio'/>
-    </interface>
     <interface type='network'>
       <source network='${INTERNAL_NET_NAME}'/>
       <model type='virtio'/>

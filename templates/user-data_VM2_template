@@ -1,0 +1,4 @@
+#cloud-config
+chpasswd: { expire: False }
+ssh_authorized_keys:
+  - $(cat ${SSH_PUB_KEY})

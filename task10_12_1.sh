@@ -22,6 +22,22 @@ mkisofs -o "$VM2_CONFIG_ISO" -V cidata -r -J --quiet config-drives/vm2-config
 echo "Generate MAC adress for external network"
 export MAC_VM1_EXT=52:54:00:`(date; cat /proc/interrupts) | md5sum | sed -r 's/^(.{6}).*$/\1/; s/([0-9a-f]{2})/\1:/g; s/:$//;'`
 
+echo "Generate SSH key for management VMs"
+if [ -e $SSH_PUB_KEY ]
+then 
+	echo "SSH key exists"
+else
+	ssh-keygen -f $SSH_PUB_KEY -t rsa -b 4096
+fi
+
+
+
+
+
+
+
+
+
 
 
 

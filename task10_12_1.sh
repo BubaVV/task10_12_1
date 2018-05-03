@@ -19,10 +19,6 @@ echo "Create two disks from image"
 cp /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 $VM1_HDD
 cp /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 $VM2_HDD
 
-echo "Create config drives"
-mkisofs -o "$VM1_CONFIG_ISO" -V cidata -r -J --quiet config-drives/vm1-config
-mkisofs -o "$VM2_CONFIG_ISO" -V cidata -r -J --quiet config-drives/vm2-config
-
 echo "Generate MAC adress for external network"
 export MAC_VM1_EXT=52:54:00:`(date; cat /proc/interrupts) | md5sum | sed -r 's/^(.{6}).*$/\1/; s/([0-9a-f]{2})/\1:/g; s/:$//;'`
 
@@ -45,6 +41,46 @@ envsubst < templates/internal_template.xml > networks/internal.xml
 
 echo "Create management.xml from template"
 envsubst < templates/management_template.xml > networks/management.xml
+
+echo "Create networks from XML templates"
+virsh net-define networks/external.xml
+virsh net-define networks/internal.xml
+virsh net-define networks/management.xml
+
+echo "Start networks"
+virsh net-start external
+virsh net-start internal
+virsh net-start management
+
+echo "Create meta-data for VMs"
+envsubst < templates/meta-data_VM1_template > config-drives/vm1-config/meta-data
+envsubst < templates/meta-data_VM2_template > config-drives/vm2-config/meta-data
+
+echo "Create user-data for VMs"
+cat > config-drives/vm1-config/user-data<<EOF
+#cloud-config
+ssh_authorized_keys:
+ - $(cat ~/.ssh/id_rsa.pub)
+chpasswd: { expire: False }
+EOF
+
+echo "Create VM1.xml and VM2.xml from template"
+envsubst < templates/vm1_template.xml > vm1.xml
+envsubst < templates/vm2_template.xml > vm2.xml
+
+echo "Create config drives"
+mkisofs -o "$VM1_CONFIG_ISO" -V cidata -r -J --quiet config-drives/vm1-config
+mkisofs -o "$VM2_CONFIG_ISO" -V cidata -r -J --quiet config-drives/vm2-config
+
+echo "Define VMs from XML templates"
+virsh define vm1.xml
+virsh define vm2.xml
+
+echo "Start VMs"
+virsh start vm1
+virsh start vm2
+
+
 
 
 

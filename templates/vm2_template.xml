@@ -22,7 +22,6 @@
       <source network='${INTERNAL_NET_NAME}'/>
       <model type='virtio'/>
     </interface>
-    </interface>
     <interface type='network'>
       <source network='${MANAGEMENT_NET_NAME}'/>
       <model type='virtio'/>

@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <name>${VM1_NAME}</name>
+  <name>vm1</name>
   <memory unit='MiB'>${VM1_MB_RAM}</memory>
   <vcpu placement='static'>${VM1_NUM_CPU}</vcpu>
   <os>
@@ -26,7 +26,6 @@
     <interface type='network'>
       <source network='${INTERNAL_NET_NAME}'/>
       <model type='virtio'/>
-    </interface>
     </interface>
     <interface type='network'>
       <source network='${MANAGEMENT_NET_NAME}'/>

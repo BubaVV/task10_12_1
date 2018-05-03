@@ -1,5 +1,5 @@
-hostname: ${VM1_NAME}
-local-hostname: ${VM1_NAME}
+hostname: ${VM2_NAME}
+local-hostname: ${VM2_NAME}
 network-interfaces: |
   auto ${VM1_INTERNAL_IF}
   iface ${VM1_INTERNAL_IF} inet static

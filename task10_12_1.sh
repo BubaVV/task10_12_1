@@ -13,7 +13,7 @@ mkdir -p config-drives/$VM1_NAME-config config-drives/$VM2_NAME-config
 
 
 echo "Download Ubuntu cloud image, if it doesn't exist"
-wget -O /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 -nc https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
+wget -O /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 -nc $VM_BASE_IMAGE
 
 echo "Create two disks from image"
 cp /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 $VM1_HDD
@@ -56,13 +56,19 @@ echo "Create meta-data for VMs"
 envsubst < templates/meta-data_VM1_template > config-drives/vm1-config/meta-data
 envsubst < templates/meta-data_VM2_template > config-drives/vm2-config/meta-data
 
-echo "Create user-data for VMs"
-cat > config-drives/vm1-config/user-data<<EOF
-#cloud-config
+echo "Create user-data for VM1"
+envsubst < templates/user-data_VM1_template > config-drives/vm1-config/user-data
+cat <<EOT >> config-drives/vm1-config/user-data
 ssh_authorized_keys:
  - $(cat ~/.ssh/id_rsa.pub)
-chpasswd: { expire: False }
-EOF
+EOT
+
+echo "Create user-data for VM2"
+envsubst < templates/user-data_VM2_template > config-drives/vm2-config/user-data
+cat <<EOT >> config-drives/vm2-config/user-data
+ssh_authorized_keys:
+ - $(cat ~/.ssh/id_rsa.pub)
+EOT
 
 echo "Create VM1.xml and VM2.xml from template"
 envsubst < templates/vm1_template.xml > vm1.xml

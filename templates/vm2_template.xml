@@ -21,6 +21,10 @@
     <interface type='network'>
       <source network='${INTERNAL_NET_NAME}'/>
       <model type='virtio'/>
+        <protocol family='ipv4'>
+        <ip address="192.168.124.102" prefix="24"/>
+        <route gateway="192.168.124.1"/>
+        </protocol>
     </interface>
     <interface type='network'>
       <source network='${MANAGEMENT_NET_NAME}'/>

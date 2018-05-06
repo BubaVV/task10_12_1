@@ -85,17 +85,3 @@ virsh define vm2.xml
 echo "Start VMs"
 virsh start vm1
 virsh start vm2
-
-
-
-
-
-
-
-
-
-
-
-
-
-

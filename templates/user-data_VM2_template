@@ -1,6 +1,11 @@
 #cloud-config
 chpasswd: { expire: False }
 password: qwerty
+runcmd:
+ - 'ip link add ${VXLAN_IF} type vxlan id ${VID} dev ${VM2_INTERNAL_IF} dstport 0'
+ - 'bridge fdb show dev ${VXLAN_IF}'
+ - 'ip addr add ${VM2_VXLAN_IP} dev ${VXLAN_IF}'
+ - 'ip link set up dev ${VXLAN_IF}'
 
 package_upgrade: false
 packages: ['docker-ce']
@@ -21,4 +26,3 @@ apt:
       # Importing a gpg key for a given key id. Used keyserver defaults to
       # keyserver.ubuntu.com
       keyid: 0EBFCD88 # GPG key ID published on a key server
-

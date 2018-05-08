@@ -7,10 +7,8 @@ envsubst < config > work_config
 source work_config
 export $(cut -d= -f1 work_config| grep -v '^$\|^\s*\#' work_config)
 
-
 echo "Create directory for config-drives for vm1 and vm2"
 mkdir -p config-drives/$VM1_NAME-config config-drives/$VM2_NAME-config
-
 
 echo "Download Ubuntu cloud image, if it doesn't exist"
 wget -O /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 -nc $VM_BASE_IMAGE

@@ -1,4 +1,4 @@
-<domain type='kvm'>
+<domain type='${VM_VIRT_TYPE}'>
   <name>${VM2_NAME}</name>
   <memory unit='MiB'>${VM2_MB_RAM}</memory>
   <vcpu placement='static'>${VM2_NUM_CPU}</vcpu>

@@ -20,12 +20,13 @@ cp /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 $VM2_HDD
 echo "Generate MAC adress for external network"
 export MAC_VM1_EXT=52:54:00:`(date; cat /proc/interrupts) | md5sum | sed -r 's/^(.{6}).*$/\1/; s/([0-9a-f]{2})/\1:/g; s/:$//;'`
 
-echo "Generate SSH key for management VMs"
+echo "Check if SSH key exists"
 if [ -e $SSH_PUB_KEY ]
 then 
 	echo "SSH key exists"
 else
-	ssh-keygen -f $SSH_PUB_KEY -t rsa -b 4096
+	echo "SSH key doesn't exists"
+        exit 1
 fi
 
 echo "Create directory for libvirt network XMLs"
@@ -58,14 +59,14 @@ echo "Create user-data for VM1"
 envsubst < templates/user-data_VM1_template > config-drives/vm1-config/user-data
 cat <<EOT >> config-drives/vm1-config/user-data
 ssh_authorized_keys:
- - $(cat ~/.ssh/id_rsa.pub)
+ - $(cat $SSH_PUB_KEY)
 EOT
 
 echo "Create user-data for VM2"
 envsubst < templates/user-data_VM2_template > config-drives/vm2-config/user-data
 cat <<EOT >> config-drives/vm2-config/user-data
 ssh_authorized_keys:
- - $(cat ~/.ssh/id_rsa.pub)
+ - $(cat $SSH_PUB_KEY)
 EOT
 
 echo "Create VM1.xml and VM2.xml from template"

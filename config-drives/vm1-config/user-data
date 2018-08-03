@@ -1,6 +1,0 @@
-#cloud-config
-chpasswd: { expire: False }
-password: qwerty
-package_upgrade: false
-ssh_authorized_keys:
- - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCYNpK8Hh4sRiHBv0vVR0AalD3Nw+Gd7ocqOpdwT/z+bUDVTuaDJoIlIiUj1tNCbOflvJz4ritu1WQ6qOcIKJQCw6Z5XeHXufLUEc5VMYvgsm8dNPM07Hb0yfaCcqjTkVUsNoinHjVIyPZNUygcRUxp9LjbTr3arHWob+SkGM8X8rPbeqCo4OVjhw0+iQeeFVNfUI6NmJFXzjtvdx2u78dkNnmpcaOo920JiHFotF43kDm2rFnjSOC/GBAfThIPqhr5hUT78PZlQJ0uMspXl9PIgCj8lfbbnsGfmk3exz90Iu/UzPsF53PvRJZIGURlpCrDwQnAYo94JL0PzF+n57v vmarkov@vmarkov-pc

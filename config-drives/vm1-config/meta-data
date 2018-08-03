@@ -1,6 +1,0 @@
-instance-id: 34cffdc0-0498-4248-8497-2150d61c073e
-hostname: vm1
-local-hostname: vm1
-network-interfaces: |
-  auto enp0s3
-  iface enp0s3 inet dhcp

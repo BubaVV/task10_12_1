@@ -13,8 +13,12 @@ mkdir -p config-drives/$VM1_NAME-config
 echo "Download Ubuntu cloud image, if it doesn't exist"
 wget -O /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 -nc $VM_BASE_IMAGE
 
-echo "Create two disks from image"
-cp /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 $VM1_HDD
+echo "Growing image size"
+cp /var/lib/libvirt/images/ubuntu-server-16.04.qcow2 /tmp/img.img
+qemu-img resize /tmp/img.img +10G
+cp /tmp/img.img $VM1_HDD
+virt-resize --expand /dev/sda1 /tmp/img.img $VM1_HDD
+rm /tmp/img.img
 
 echo "Generate MAC adress for external network"
 export MAC_VM1_EXT=52:54:00:`(date; cat /proc/interrupts) | md5sum | sed -r 's/^(.{6}).*$/\1/; s/([0-9a-f]{2})/\1:/g; s/:$//;'`

@@ -3,10 +3,10 @@
 EXTERNAL_NET_NAME=external
 EXTERNAL_NET_TYPE=dhcp
 EXTERNAL_NET=192.168.123
-EXTERNAL_NET_IP=${EXTERNAL_NET}.0
+EXTERNAL_NET_IP=192.168.123.0
 EXTERNAL_NET_MASK=255.255.255.0
-EXTERNAL_NET_HOST_IP=${EXTERNAL_NET}.1
-VM1_EXTERNAL_IP=${EXTERNAL_NET}.101
+EXTERNAL_NET_HOST_IP=192.168.123.1
+VM1_EXTERNAL_IP=192.168.123.101
 
 # VMs global parameters
 SSH_PUB_KEY=/home/vmarkov/.ssh/id_rsa.pub
@@ -18,7 +18,7 @@ VM_BASE_IMAGE=https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloud
 # VMs
 VM1_NAME=vm1
 VM1_NUM_CPU=1
-VM1_MB_RAM=4096
+VM1_MB_RAM=512
 VM1_HDD=/var/lib/libvirt/images/vm1.qcow2
 VM1_CONFIG_ISO=/var/lib/libvirt/images/config-vm1.iso
 VM1_EXTERNAL_IF=enp0s3

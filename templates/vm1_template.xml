@@ -23,18 +23,6 @@
       <source network='${EXTERNAL_NET_NAME}'/>
       <model type='virtio'/>
     </interface>
-    <interface type='network'>
-      <source network='${INTERNAL_NET_NAME}'/>
-      <model type='virtio'/>
-      <protocol family='ipv4'>
-      <ip address="${VM1_INTERNAL_IP}" prefix="24"/>
-      <route gateway="${INTERNAL_NET}.1"/>
-      </protocol>
-    </interface>
-    <interface type='network'>
-      <source network='${MANAGEMENT_NET_NAME}'/>
-      <model type='virtio'/>
-    </interface>
     <serial type='pty'>
       <source path='/dev/pts/0'/>
       <target port='0'/>
